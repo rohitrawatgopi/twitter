@@ -27,10 +27,32 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             });
           },
           children: [
-            Image.asset(
-              "assets/first.png",
-              fit: BoxFit.cover,
-            ),
+            Stack(children: [
+              Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(
+                  "assets/first.png",
+                  fit: BoxFit.cover,
+                ),
+              ),
+              isLast
+                  ? const SizedBox()
+                  : Positioned(
+                      bottom: 2,
+                      right: 8,
+                      child: TextButton(
+                          onPressed: () {
+                            pageController.animateToPage(1,
+                                duration: const Duration(seconds: 2),
+                                curve: Curves.linear);
+                          },
+                          child: const Text(
+                            'skip',
+                            style: TextStyle(fontSize: 20),
+                          )),
+                    ),
+            ]),
             Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -64,18 +86,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             )
           ],
         ),
-        isLast
-            ? const SizedBox()
-            : TextButton(
-                onPressed: () {
-                  pageController.animateToPage(1,
-                      duration: const Duration(seconds: 2),
-                      curve: Curves.linear);
-                },
-                child: const Text(
-                  'skip',
-                  style: TextStyle(fontSize: 20),
-                )),
         Align(
           alignment: Alignment.bottomCenter,
           child: SmoothPageIndicator(

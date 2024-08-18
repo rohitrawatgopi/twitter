@@ -173,7 +173,7 @@ class _TweetScreenState extends State<TweetScreen> {
                   ),
                 );
               } else {
-                return Text("No Tweet found ");
+                return Center(child: Text("No Tweet found "));
               }
             case TweetErrorState:
               final error = state as TweetErrorState;
